@@ -110,7 +110,6 @@ namespace Library.Logic.Repository.Implementation
 					.ToListAsync();
 			}
 
-			// Generic fallback - override in specific repositories
 			return await GetAllAsync();
 		}
 	}

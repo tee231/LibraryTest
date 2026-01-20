@@ -63,13 +63,13 @@ namespace LibraryApi.Controllers
 
 		[HttpPut]
 		[Route("api/EditBooks/{Id}")]
-		public async Task<IActionResult> ModifyBook([FromBody] BookRequestDTO request)
+		public async Task<IActionResult> ModifyBook([FromBody] EditBookDTO request)
 		{
 			try
 			{
 				if (ModelState.IsValid)
 				{
-					var newbook = _bookService.GetBookbyId(request.Id);
+					var newbook = _bookService.GetBookbyId(request);
 					return Ok(newbook);
 				}
 				return StatusCode(400);

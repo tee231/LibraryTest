@@ -15,8 +15,7 @@ namespace Library.Logic.Repository.Abstraction
 		Task<FilterResponseDTO> FilterBooksAsync(BookFilterRequestDTO filter);
 		Task<List<AddBookResponse>> GetAllBooks();
 		Task<AddBookResponse> GetAllBooksWithPagination(ViewAllBooksDTO res);
-		Task<AddBookResponse> GetBookbyId(int Id);
+		Task<AddBookResponse> GetBookbyId(EditBookDTO req);
 
-		//Task<List<AddBookResponse>> SearchBooksAsync(string searchTerm); // Add this
 	}
 }

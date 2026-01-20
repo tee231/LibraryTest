@@ -96,16 +96,36 @@ namespace Library.Logic.Repository.Implementation
 		}
 
 
-		public async Task<AddBookResponse> GetBookbyId(int Id)
+		public async Task<AddBookResponse> GetBookbyId(EditBookDTO req)
 		{
 			try
 			{
-				var book = await _book.GetByConditionAsync(s => s.Id == Id);
-				var res = book.FirstOrDefaultAsync();
+				var book = await _book.GetByConditionAsync(s => s.Id == req.Id);
+				var res = await book.FirstOrDefaultAsync();
 				if(res == null)
 				{
 					return new AddBookResponse { message = "Book not found", responsecode = "06", responedata = new () };
 				}
+
+				if (!string.IsNullOrEmpty(req.Title))
+				{
+					res.Title = req.Title;
+				}
+				if (!string.IsNullOrEmpty(req.ISBN))
+				{
+				 res.ISBN = req.ISBN;
+				}
+				if (!string.IsNullOrEmpty(req.Author))
+				{
+					res.Author = req.Author;
+				}
+				if(req.PublishedDate.HasValue)
+				{
+					res.PublishedDate = req.PublishedDate.Value;
+				}
+				req.ModifieddDate = DateTime.Now;
+				await _book.Update(res);
+
 
 				return new AddBookResponse { message = "Successful", responsecode = "00", responedata = res };
 			}
